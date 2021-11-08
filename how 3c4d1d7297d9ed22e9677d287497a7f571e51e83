@@ -1,0 +1,383 @@
+[33mcommit b9d137e7e398b95e52725f87f024260951d649ce[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: HopkinsKV <hopkinskv@gmail.com>
+Date:   Mon Nov 8 09:15:08 2021 -0600
+
+    Adding debugging to test merge
+
+[1mdiff --git a/analysis/Untitled-1.py b/analysis/Untitled-1.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b736210[m
+[1m--- /dev/null[m
+[1m+++ b/analysis/Untitled-1.py[m
+[36m@@ -0,0 +1,142 @@[m
+[32m+[m[32m# Add our dependencies.[m
+[32m+[m[32mimport csv[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m[32m# Assign a variable to load a file from a path.[m
+[32m+[m[32mfile_to_load = os.path.join("Resources", "election_results.csv")[m
+[32m+[m[32m# Assign a variable to save the file to a path.[m
+[32m+[m[32mfile_to_save = os.path.join("analysis", "election_analysis.txt")[m
+[32m+[m
+[32m+[m[32m#Initialize the accumulator variable. ***This is above the open statement,[m
+[32m+[m[32m# because we want to set it to 0 each time we run the file***[m
+[32m+[m[32mtotal_votes = 0[m
+[32m+[m
+[32m+[m[32m# Candidate variables[m
+[32m+[m[32mcandidate_options = [][m
+[32m+[m[32m# Declare empty dictionary to hold candidate votes[m
+[32m+[m[32mcandidate_votes = {}[m
+[32m+[m
+[32m+[m[32m# 1: Create a county list and county votes dictionary.[m
+[32m+[m[32mcounty_options = [][m
+[32m+[m[32mcounty_votes_dict = {}[m
+[32m+[m
+[32m+[m
+[32m+[m[32m#Declare variables for winning[m
+[32m+[m[32mwinning_candidate = ""[m
+[32m+[m[32mwinning_count = 0[m
+[32m+[m[32mwinning_percentage = 0[m
+[32m+[m
+[32m+[m[32m# 2: Track the largest county and county voter turnout.[m
+[32m+[m[32mcounty_largest = ""[m
+[32m+[m[32mcounty_totalvotes = 0[m
+[32m+[m
+[32m+[m[32m#Declare variables for winning[m
+[32m+[m[32mwinning_county = ""[m
+[32m+[m[32mwinning_county_count = 0[m
+[32m+[m[32mwinning_county_percentage = 0[m
+[32m+[m
+[32m+[m[32m# Open the election results and read the file.[m
+[32m+[m[32mwith open(file_to_load) as election_data:[m
+[32m+[m[32m   # Read the file object with the reader function.[m
+[32m+[m[32m   # ***file_reader is referencing the fileobject stored in memory***[m
+[32m+[m[32m    file_reader = csv.reader(election_data)[m
+[32m+[m
+[32m+[m[32m    # Read the header row (skipping it with next)[m
+[32m+[m[32m    headers = next(file_reader)[m
+[32m+[m
+[32m+[m[32m    # Print each row in the CSV file as a list.[m
+[32m+[m[32m    for row in file_reader:[m
+[32m+[m[32m        # Iterate through each row and increase accumulator. ***Shorthand for number = number + 1***[m
+[32m+[m[32m        total_votes += 1[m
+[32m+[m[32m        # Print Candidate name[m
+[32m+[m[32m        candidate_name = (row[2])[m
+[32m+[m
+[32m+[m[32m        # 3: Extract the county name from each row.[m
+[32m+[m[32m        county_name = (row[1])[m
+[32m+[m
+[32m+[m[32m        #if uinique add candidate name to list, set votecounter to 0[m
+[32m+[m[32m        if candidate_name not in candidate_options:[m
+[32m+[m[32m            candidate_options.append(candidate_name)[m
+[32m+[m[32m            candidate_votes[candidate_name] = 0[m
+[32m+[m[32m        candidate_votes[candidate_name] += 1[m
+[32m+[m
+[32m+[m[32m        # 4a: Write an if statement that checks that the[m
+[32m+[m[32m        # county does not match any existing county in the county list.[m
+[32m+[m[32m        if county_name not in county_options:[m
+[32m+[m[32m            # 4b: Add the existing county to the list of counties.[m
+[32m+[m[32m            county_options.append(county_name)[m[41m            [m
+[32m+[m[32m            # 4c: Begin tracking the county's vote count.[m
+[32m+[m[32m            county_votes_dict[county_name] = 0[m
+[32m+[m[32m        # 5: Add a vote to that county's vote count.[m
+[32m+[m[32m        county_totalvotes += 1[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Save the results to our text file.[m
+[32m+[m[32mwith open(file_to_save, "w") as txt_file:[m
+[32m+[m[32m    # Print the final vote count to the terminal.[m
+[32m+[m[32m    election_results = ([m
+[32m+[m[32m        f"\nElection Results\n"[m
+[32m+[m[32m        f"-------------------------\n"[m
+[32m+[m[32m        f"Total Votes: {total_votes:,}\n"[m
+[32m+[m[32m        f"-------------------------\n")[m
+[32m+[m[32m    print(election_results, end="")[m
+[32m+[m
+[32m+[m[32m    txt_file.write(election_results)[m
+[32m+[m
+[32m+[m[32m    # 6a: Write a for loop to get the county from the county dictionary.[m
+[32m+[m[32m    for county in county_votes_dict:[m
+[32m+[m[32m        # 6b: Retrieve the county vote count.[m
+[32m+[m[32m        countyvotes = county_votes_dict[county_name][m
+[32m+[m[32m        # 6c: Calculate the percentage of votes for the county.[m
+[32m+[m[32m        county_vote_percentage = float(countyvotes) / float(county_totalvotes) *100[m
+[32m+[m[32m        county_results = ([m
+[32m+[m[32m            f"{county_name}: {county_vote_percentage:.1f}% ({countyvotes:,})\n")[m
+[32m+[m[32m        # 6d: Print the county results to the terminal.[m
+[32m+[m[32m        print(county_results)[m
+[32m+[m[32m         # 6e: Save the county votes to a text file.[m
+[32m+[m[32m        txt_file.write(county_results)[m
+[32m+[m[32m         # 6f: Write an if statement to determine the winning county and get its vote count.[m
+[32m+[m[32m        if (countyvotes > winning_county_count) and (county_vote_percentage > winning_county_percentage):[m
+[32m+[m[32m            #If true then set winning_count = votes and winning_percent = vote_percentage.[m
+[32m+[m[32m            winning_county_count = countyvotes[m
+[32m+[m[32m            winning_county_percentage = county_vote_percentage[m
+[32m+[m[32m            winning_county = county_name[m
+[32m+[m[41m [m
+[32m+[m[32m    winning_county_summary = ([m
+[32m+[m[32m        f"-------------------------\n"[m
+[32m+[m[32m        f"Winner: {winning_county}\n"[m
+[32m+[m[32m        f"Winning Vote Count: {winning_county_count:,}\n"[m
+[32m+[m[32m        f"Winning Percentage: {winning_county_percentage:.1f}%\n"[m
+[32m+[m[32m        f"-------------------------\n")[m
+[32m+[m[41m    [m
+[32m+[m[32m    # 7: Print the county with the largest turnout to the terminal.[m
+[32m+[m[32m    print(winning_county_summary, end="")[m
+[32m+[m[32m    # 8: Save the county with the largest turnout to a text file.[m
+[32m+[m[32m    txt_file.write(winning_county_summary)[m
+[32m+[m
+[32m+[m[32m    # Save the final candidate vote count to the text file.[m
+[32m+[m[32m    for candidate_name in candidate_votes:[m
+[32m+[m[32m        # Retrieve vote count of a candidate.[m
+[32m+[m[32m        votes = candidate_votes[candidate_name][m
+[32m+[m[32m        # Calculate the percentage of votes.[m
+[32m+[m[32m        vote_percentage = float(votes) / float(total_votes) * 100[m
+[32m+[m[32m        candidate_results = ([m
+[32m+[m[32m           f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")[m
+[32m+[m[32m        print(candidate_results)[m
+[32m+[m[32m        txt_file.write(candidate_results)[m
+[32m+[m
+[32m+[m[32m        # determine winning votes[m
+[32m+[m[32m        if (votes > winning_count) and (vote_percentage > winning_percentage):[m
+[32m+[m[32m            #If true then set winning_count = votes and winning_percent = vote_percentage.[m
+[32m+[m[32m            winning_count = votes[m
+[32m+[m[32m            winning_percentage = vote_percentage[m
+[32m+[m[32m            winning_candidate = candidate_name[m
+[32m+[m
+[32m+[m[32m    winning_candidate_summary = ([m
+[32m+[m[32m        f"-------------------------\n"[m
+[32m+[m[32m        f"Winner: {winning_candidate}\n"[m
+[32m+[m[32m        f"Winning Vote Count: {winning_count:,}\n"[m
+[32m+[m[32m        f"Winning Percentage: {winning_percentage:.1f}%\n"[m
+[32m+[m[32m        f"-------------------------\n")[m
+[32m+[m[32m    print(winning_candidate_summary)[m
+[32m+[m[32m    txt_file.write(winning_candidate_summary)[m
+[1mdiff --git a/analysis/Untitled-2.py b/analysis/Untitled-2.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d3f86ed[m
+[1m--- /dev/null[m
+[1m+++ b/analysis/Untitled-2.py[m
+[36m@@ -0,0 +1,72 @@[m
+[32m+[m[32m# Add our dependencies.[m
+[32m+[m[32mimport csv[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m[32m# Assign a variable to load a file from a path.[m
+[32m+[m[32mfile_to_load = os.path.join("Resources", "election_results.csv")[m
+[32m+[m[32m# Assign a variable to save the file to a path.[m
+[32m+[m[32mfile_to_save = os.path.join("analysis", "election_analysis.txt")[m
+[32m+[m
+[32m+[m[32m# 1: Create a county list and county votes dictionary.[m
+[32m+[m[32mcounty_options = [][m
+[32m+[m[32mcounty_votes = {}[m
+[32m+[m
+[32m+[m[32m# 2: Track the largest county and county voter turnout.[m
+[32m+[m[32mtotal_votes= 0[m
+[32m+[m[32mcounty_largest = ""[m
+[32m+[m[32mcounty_percentage = 0[m
+[32m+[m[32mlargest_turnout = 0[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Open the election results and read the file.[m
+[32m+[m[32mwith open(file_to_load) as election_data:[m
+[32m+[m[32m   # Read the file object with the reader function.[m
+[32m+[m[32m   # ***file_reader is referencing the fileobject stored in memory***[m
+[32m+[m[32m    file_reader = csv.reader(election_data)[m
+[32m+[m
+[32m+[m[32m    # Read the header row (skipping it with next)[m
+[32m+[m[32m    headers = next(file_reader)[m
+[32m+[m
+[32m+[m[32m    # Print each row in the CSV file as a list.[m
+[32m+[m[32m    for row in file_reader:[m
+[32m+[m[32m        total_votes += 1[m
+[32m+[m[32m        # 3: Extract the county name from each row.[m
+[32m+[m[32m        county_name = (row[1])[m
+[32m+[m[41m        [m
+[32m+[m[32m        # 4a: Write an if statement that checks that the[m
+[32m+[m[32m        # county does not match any existing county in the county list.[m
+[32m+[m[32m        if county_name not in county_options:[m
+[32m+[m[32m            # 4b: Add the existing county to the list of counties.[m
+[32m+[m[32m            county_options.append(county_name)[m
+[32m+[m[32m            # 4c: Begin tracking the county's vote count.[m
+[32m+[m[32m            county_votes[county_name] = 0[m
+[32m+[m[32m        # 5: Add a vote to that county's vote count.[m
+[32m+[m[32m        county_votes[county_name] += 1[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    # 6a: Write a for loop to get the county from the county dictionary.[m
+[32m+[m[32m    with open(file_to_save, "w") as txt_file:[m
+[32m+[m[32m        for county_name in county_votes:[m
+[32m+[m[32m            # 6b: Retrieve the county vote count.[m
+[32m+[m[32m            countyvotes = county_votes[county_name][m
+[32m+[m[32m            # 6c: Calculate the percentage of votes for the county.[m
+[32m+[m[32m            county_vote_percentage = float(countyvotes) / float(total_votes) *100[m
+[32m+[m[32m            county_results = ([m
+[32m+[m[32m                f"{county_name}: {county_vote_percentage:.1f}% ({countyvotes:,})\n")[m
+[32m+[m[32m            # 6d: Print the county results to the terminal.[m
+[32m+[m[32m            print(county_results)[m
+[32m+[m[32m            # 6e: Save the county votes to a text file.[m
+[32m+[m[32m            txt_file.write(county_results)[m
+[32m+[m[32m            # 6f: Write an if statement to determine the winning county and get its vote count.[m
+[32m+[m[32m            if (countyvotes > largest_turnout) and (county_vote_percentage > largest_turnout):[m
+[32m+[m[32m                largest_turnout = countyvotes[m
+[32m+[m[32m                largest_turnout = county_vote_percentage[m
+[32m+[m[32m                county_largest = county_name[m
+[32m+[m[41m                [m
+[32m+[m
+[32m+[m[32m        # 7: Print the county with the largest turnout to the terminal.[m
+[32m+[m[32m        print(largest_turnout, end="")[m
+[32m+[m[32m        # 8: Save the county with the largest turnout to a text file.[m
+[32m+[m[32m        txt_file.write(county_largest)[m
+\ No newline at end of file[m
+[1mdiff --git a/analysis/starter.py b/analysis/starter.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6a0aeef[m
+[1m--- /dev/null[m
+[1m+++ b/analysis/starter.py[m
+[36m@@ -0,0 +1,144 @@[m
+[32m+[m[32m# -*- coding: UTF-8 -*-[m
+[32m+[m[32m"""PyPoll Homework Challenge Solution."""[m
+[32m+[m
+[32m+[m[32m# Add our dependencies.[m
+[32m+[m[32mimport csv[m
+[32m+[m[32mimport os[m
+[32m+[m
+[32m+[m[32m# Add a variable to load a file from a path.[m
+[32m+[m[32mfile_to_load = os.path.join("..", "Resources", "election_results.csv")[m
+[32m+[m[32m# Add a variable to save the file to a path.[m
+[32m+[m[32mfile_to_save = os.path.join("analysis", "election_analysis.txt")[m
+[32m+[m
+[32m+[m[32m# Initialize a total vote counter.[m
+[32m+[m[32mtotal_votes = 0[m
+[32m+[m
+[32m+[m[32m# Candidate Options and candidate votes.[m
+[32m+[m[32mcandidate_options = [][m
+[32m+[m[32mcandidate_votes = {}[m
+[32m+[m
+[32m+[m[32m# 1: Create a county list and county votes dictionary.[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Track the winning candidate, vote count and percentage[m
+[32m+[m[32mwinning_candidate = ""[m
+[32m+[m[32mwinning_count = 0[m
+[32m+[m[32mwinning_percentage = 0[m
+[32m+[m
+[32m+[m[32m# 2: Track the largest county and county voter turnout.[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Read the csv and convert it into a list of dictionaries[m
+[32m+[m[32mwith open(file_to_load) as election_data:[m
+[32m+[m[32m    reader = csv.reader(election_data)[m
+[32m+[m
+[32m+[m[32m    # Read the header[m
+[32m+[m[32m    header = next(reader)[m
+[32m+[m
+[32m+[m[32m    # For each row in the CSV file.[m
+[32m+[m[32m    for row in reader:[m
+[32m+[m
+[32m+[m[32m        # Add to the total vote count[m
+[32m+[m[32m        total_votes = total_votes + 1[m
+[32m+[m
+[32m+[m[32m        # Get the candidate name from each row.[m
+[32m+[m[32m        candidate_name = row[2][m
+[32m+[m
+[32m+[m[32m        # 3: Extract the county name from each row.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        # If the candidate does not match any existing candidate add it to[m
+[32m+[m[32m        # the candidate list[m
+[32m+[m[32m        if candidate_name not in candidate_options:[m
+[32m+[m
+[32m+[m[32m            # Add the candidate name to the candidate list.[m
+[32m+[m[32m            candidate_options.append(candidate_name)[m
+[32m+[m
+[32m+[m[32m            # And begin tracking that candidate's voter count.[m
+[32m+[m[32m            candidate_votes[candidate_name] = 0[m
+[32m+[m
+[32m+[m[32m        # Add a vote to that candidate's count[m
+[32m+[m[32m        candidate_votes[candidate_name] += 1[m
+[32m+[m
+[32m+[m[32m        # 4a: Write an if statement that checks that the[m
+[32m+[m[32m        # county does not match any existing county in the county list.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m            # 4b: Add the existing county to the list of counties.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m            # 4c: Begin tracking the county's vote count.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        # 5: Add a vote to that county's vote count.[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Save the results to our text file.[m
+[32m+[m[32mwith open(file_to_save, "w") as txt_file:[m
+[32m+[m
+[32m+[m[32m    # Print the final vote count (to terminal)[m
+[32m+[m[32m    election_results = ([m
+[32m+[m[32m        f"\nElection Results\n"[m
+[32m+[m[32m        f"-------------------------\n"[m
+[32m+[m[32m        f"Total Votes: {total_votes:,}\n"[m
+[32m+[m[32m        f"-------------------------\n\n"[m
+[32m+[m[32m        f"County Votes:\n")[m
+[32m+[m[32m    print(election_results, end="")[m
+[32m+[m
+[32m+[m[32m    txt_file.write(election_results)[m
+[32m+[m
+[32m+[m[32m    # 6a: Write a for loop to get the county from the county dictionary.[m
+[32m+[m
+[32m+[m[32m        # 6b: Retrieve the county vote count.[m
+[32m+[m
+[32m+[m[32m        # 6c: Calculate the percentage of votes for the county.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m         # 6d: Print the county results to the terminal.[m
+[32m+[m
+[32m+[m[32m         # 6e: Save the county votes to a text file.[m
+[32m+[m
+[32m+[m[32m         # 6f: Write an if statement to determine the winning county and get its vote count.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    # 7: Print the county with the largest turnout to the terminal.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    # 8: Save the county with the largest turnout to a text file.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    # Save the final candidate vote count to the text file.[m
+[32m+[m[32m    for candidate_name in candidate_votes:[m
+[32m+[m
+[32m+[m[32m        # Retrieve vote count and percentage[m
+[32m+[m[32m        votes = candidate_votes.get(candidate_name)[m
+[32m+[m[32m        vote_percentage = float(votes) / float(total_votes) * 100[m
+[32m+[m[32m        candidate_results = ([m
+[32m+[m[32m            f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")[m
+[32m+[m
+[32m+[m[32m        # Print each candidate's voter count and percentage to the[m
+[32m+[m[32m        # terminal.[m
+[32m+[m[32m        print(candidate_results)[m
+[32m+[m[32m        #  Save the candidate results to our text file.[m
+[32m+[m[32m        txt_file.write(candidate_results)[m
+[32m+[m
+[32m+[m[32m        # Determine winning vote count, winning percentage, and candidate.[m
+[32m+[m[32m        if (votes > winning_count) and (vote_percentage > winning_percentage):[m
+[32m+[m[32m            winning_count = votes[m
+[32m+[m[32m            winning_candidate = candidate_name[m
+[32m+[m[32m            winning_percentage = vote_percentage[m
+[32m+[m
+[32m+[m[32m    # Print the winning candidate (to terminal)[m
+[32m+[m[32m    winning_candidate_summary = ([m
+[32m+[m[32m        f"-------------------------\n"[m
+[32m+[m[32m        f"Winner: {winning_candidate}\n"[m
+[32m+[m[32m        f"Winning Vote Count: {winning_count:,}\n"[m
+[32m+[m[32m        f"Winning Percentage: {winning_percentage:.1f}%\n"[m
+[32m+[m[32m        f"-------------------------\n")[m
+[32m+[m[32m    print(winning_candidate_summary)[m
+[32m+[m
+[32m+[m[32m    # Save the winning candidate's name to the text file[m
+[32m+[m[32m    txt_file.write(winning_candidate_summary)[m
