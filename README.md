@@ -51,6 +51,7 @@ Candidate Results determined by:
 
 ## Election-Audit Summary
 The script as currently written will provide analysis of county and candidate results for an election. Adding additional result aspects, such as state or polling location, would be easy to modify by following the pattern set forth as shown here. 
+
 ![image](https://user-images.githubusercontent.com/91762315/140790657-0bf26053-e5b6-49f5-a821-debc75a4ea33.png)
 
 Additional variables can be added with slight name modifications and repetition of the code already in place.
