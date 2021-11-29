@@ -33,7 +33,7 @@ The analysis of the election show that:
 
 County Results determined by:
 
-![image](https://user-images.githubusercontent.com/91762315/140791852-a92a8f0a-1ac6-4175-8045-3df3c562d20d.png)
+![image](https://user-images.githubusercontent.com/91762315/140793609-a9fa3757-3f67-40d0-a0d3-f0007366d2f4.png)
 
 - The candidate results were:
   - Charles Casper Stockham received 23.0% of the vote and 85,213 votes.
@@ -49,7 +49,12 @@ Candidate Results determined by:
 
 
 ## Election-Audit Summary
+<<<<<<< HEAD
 The script as currently written will provide analysis of county and candidate results for an election. Adding additional result aspects, such as state or polling location, would be easy to modify by following the pattern set forth as shown here.
+=======
+The script as currently written will provide analysis of county and candidate results for an election. Adding additional result aspects, such as state or polling location, would be easy to modify by following the pattern set forth as shown here. 
+
+>>>>>>> 1d85ce5bc09e95a7b3b3e76fd9b86af72bd57d81
 ![image](https://user-images.githubusercontent.com/91762315/140790657-0bf26053-e5b6-49f5-a821-debc75a4ea33.png)
 
 Additional variables can be added with slight name modifications and repetition of the code already in place.
@@ -58,5 +63,13 @@ Additional variables can be added with slight name modifications and repetition 
 
 It will be simple to change the file being reviewed, by adjusting the file path as shown here. This can include changes from static to dynamic paths, as needed.
 
+<<<<<<< HEAD
 ![image](https://user-images.githubusercontent.com/91762315/140791250-ed26d86c-a3b3-4840-98b4-b165e41cbcbe.png)
 ![image](https://user-images.githubusercontent.com/91762315/140791449-4deefa88-b388-4b06-8954-3a9498223b92.png)
+=======
+![image](https://user-images.githubusercontent.com/91762315/140793140-81d072ee-3ae2-427d-8588-a79a81d3f940.png)
+![image](https://user-images.githubusercontent.com/91762315/140793307-159dfd0b-299d-4dc6-aac7-0de72428fb4e.png)
+
+
+
+>>>>>>> 1d85ce5bc09e95a7b3b3e76fd9b86af72bd57d81
