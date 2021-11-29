@@ -1,4 +1,4 @@
-# Election_Analysis
+# Election Analysis
 
 ## Project Overview
 Previously, the Colorado Board of Elections had requested the following information to complete the election audit of a recent local congressional election.
@@ -9,7 +9,7 @@ Previously, the Colorado Board of Elections had requested the following informat
 4. Calculate the percentage of votes each candidate won.
 5. Determine the winner of the election based on popular vote.
 
-The below information was requested to supplement the previously provided data. 
+The below information was requested to supplement the previously provided data.
 
 6. The voter turnout for each county
 7. The percentage of votes from each county out of the total count
@@ -20,7 +20,6 @@ The below information was requested to supplement the previously provided data.
 
 - Data Source: [election_results.csv](https://github.com/HopkinsKV/Election_Analysis/blob/main/Resources/election_results.csv)
 - Software: Python 3.7.3, Visual Studio Code 1.62.0, Atom 1.58.0
-- Assistant Bug Squasher: Eamonn Comerford
 
 ## Election-Audit Results
 The analysis of the election show that:
@@ -31,7 +30,7 @@ The analysis of the election show that:
   -  Arapahoe County received 6.7% of the vote and 24,801 votes.
 - The county with the largest voter turnout was:
    - Denver
-   
+
 County Results determined by:
 
 ![image](https://user-images.githubusercontent.com/91762315/140791852-a92a8f0a-1ac6-4175-8045-3df3c562d20d.png)
@@ -50,7 +49,7 @@ Candidate Results determined by:
 
 
 ## Election-Audit Summary
-The script as currently written will provide analysis of county and candidate results for an election. Adding additional result aspects, such as state or polling location, would be easy to modify by following the pattern set forth as shown here. 
+The script as currently written will provide analysis of county and candidate results for an election. Adding additional result aspects, such as state or polling location, would be easy to modify by following the pattern set forth as shown here.
 ![image](https://user-images.githubusercontent.com/91762315/140790657-0bf26053-e5b6-49f5-a821-debc75a4ea33.png)
 
 Additional variables can be added with slight name modifications and repetition of the code already in place.
@@ -61,6 +60,3 @@ It will be simple to change the file being reviewed, by adjusting the file path 
 
 ![image](https://user-images.githubusercontent.com/91762315/140791250-ed26d86c-a3b3-4840-98b4-b165e41cbcbe.png)
 ![image](https://user-images.githubusercontent.com/91762315/140791449-4deefa88-b388-4b06-8954-3a9498223b92.png)
-
-
-
